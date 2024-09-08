@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/DecentralizedChat.sol": {
+      "content": "\n\n\n\n\n\n\n\n\n\n// SPDX-License-Identifier: MIT\npragma solidity >=0.8.0 <0.9.0;\n\ncontract DecentralizedChat {\n    struct Message {\n        address sender;\n        string content;\n        uint256 timestamp;\n    }\n\n    struct Room {\n        string name;\n        address[] members;\n        Message[] messages;\n    }\n\n    Room[] public rooms;\n\n    mapping(address => uint256[]) public userRooms;\n\n    event RoomCreated(uint256 roomId, string name, address creator);\n    event JoinedRoom(uint256 roomId, address user);\n    event MessageSent(uint256 roomId, address sender, string content, uint256 timestamp);\n\n    function createRoom(string memory name) public {\n        Room storage newRoom = rooms.push();\n        newRoom.name = name;\n        newRoom.members.push(msg.sender);\n        uint256 roomId = rooms.length - 1;\n        userRooms[msg.sender].push(roomId);\n\n        emit RoomCreated(roomId, name, msg.sender);\n    }\n\n    function joinRoom(uint256 roomId) public {\n        require(roomId < rooms.length, \"Room does not exist\");\n        Room storage room = rooms[roomId];\n\n        // Check if the user is already a member\n        for (uint256 i = 0; i < room.members.length; i++) {\n            if (room.members[i] == msg.sender) {\n                revert(\"User is already a member of the room\");\n            }\n        }\n\n        room.members.push(msg.sender);\n        userRooms[msg.sender].push(roomId);\n\n        emit JoinedRoom(roomId, msg.sender);\n    }\n\n    function sendMessage(uint256 roomId, string memory content) public {\n        require(roomId < rooms.length, \"Room does not exist\");\n        Room storage room = rooms[roomId];\n\n        // Check if the user is a member of the room\n        bool isMember = false;\n        for (uint256 i = 0; i < room.members.length; i++) {\n            if (room.members[i] == msg.sender) {\n                isMember = true;\n                break;\n            }\n        }\n        require(isMember, \"User is not a member of the room\");\n\n        room.messages.push(Message({\n            sender: msg.sender,\n            content: content,\n            timestamp: block.timestamp\n        }));\n\n        emit MessageSent(roomId, msg.sender, content, block.timestamp);\n    }\n\n    function getRoom(uint256 roomId) public view returns (string memory name, address[] memory members, Message[] memory messages) {\n        require(roomId < rooms.length, \"Room does not exist\");\n        Room storage room = rooms[roomId];\n        return (room.name, room.members, room.messages);\n    }\n\n    function getUserRooms(address user) public view returns (uint256[] memory) {\n        return userRooms[user];\n    }\n\n    // Function to get the number of rooms\n    function getRoomCount() public view returns (uint256) {\n        return rooms.length;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

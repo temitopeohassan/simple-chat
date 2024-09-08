@@ -1,0 +1,407 @@
+{
+  "address": "0xBEE29d843C2d721b898F1EF0b8486295a162Fc5d",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "JoinedRoom",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "content",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "MessageSent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "creator",
+          "type": "address"
+        }
+      ],
+      "name": "RoomCreated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "createRoom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getRoom",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "address[]",
+          "name": "members",
+          "type": "address[]"
+        },
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "content",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct DecentralizedChat.Message[]",
+          "name": "messages",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getRoomCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserRooms",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        }
+      ],
+      "name": "joinRoom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "rooms",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "roomId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "content",
+          "type": "string"
+        }
+      ],
+      "name": "sendMessage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "userRooms",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xdea9b63fa209997c661cb1247285541574e55c7f75eae4acb4feff5e5d2f4b95",
+  "receipt": {
+    "to": null,
+    "from": "0x2b2542b313385AF7453623765383CE3cc5D3c9cF",
+    "contractAddress": "0xBEE29d843C2d721b898F1EF0b8486295a162Fc5d",
+    "transactionIndex": 6,
+    "gasUsed": "863720",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x157969d7e9e0c8ad522137d8e3c9e72ae6082115fddf1f94525cb15409bb917c",
+    "transactionHash": "0xdea9b63fa209997c661cb1247285541574e55c7f75eae4acb4feff5e5d2f4b95",
+    "logs": [],
+    "blockNumber": 11521337,
+    "cumulativeGasUsed": "2908858",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "c33490ed46e808241e8a52566fa64441",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"JoinedRoom\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"content\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"MessageSent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"}],\"name\":\"RoomCreated\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"createRoom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"}],\"name\":\"getRoom\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"address[]\",\"name\":\"members\",\"type\":\"address[]\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"content\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"internalType\":\"struct DecentralizedChat.Message[]\",\"name\":\"messages\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRoomCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getUserRooms\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"}],\"name\":\"joinRoom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"rooms\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"roomId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"content\",\"type\":\"string\"}],\"name\":\"sendMessage\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"userRooms\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/DecentralizedChat.sol\":\"DecentralizedChat\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/DecentralizedChat.sol\":{\"content\":\"\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\ncontract DecentralizedChat {\\n    struct Message {\\n        address sender;\\n        string content;\\n        uint256 timestamp;\\n    }\\n\\n    struct Room {\\n        string name;\\n        address[] members;\\n        Message[] messages;\\n    }\\n\\n    Room[] public rooms;\\n\\n    mapping(address => uint256[]) public userRooms;\\n\\n    event RoomCreated(uint256 roomId, string name, address creator);\\n    event JoinedRoom(uint256 roomId, address user);\\n    event MessageSent(uint256 roomId, address sender, string content, uint256 timestamp);\\n\\n    function createRoom(string memory name) public {\\n        Room storage newRoom = rooms.push();\\n        newRoom.name = name;\\n        newRoom.members.push(msg.sender);\\n        uint256 roomId = rooms.length - 1;\\n        userRooms[msg.sender].push(roomId);\\n\\n        emit RoomCreated(roomId, name, msg.sender);\\n    }\\n\\n    function joinRoom(uint256 roomId) public {\\n        require(roomId < rooms.length, \\\"Room does not exist\\\");\\n        Room storage room = rooms[roomId];\\n\\n        // Check if the user is already a member\\n        for (uint256 i = 0; i < room.members.length; i++) {\\n            if (room.members[i] == msg.sender) {\\n                revert(\\\"User is already a member of the room\\\");\\n            }\\n        }\\n\\n        room.members.push(msg.sender);\\n        userRooms[msg.sender].push(roomId);\\n\\n        emit JoinedRoom(roomId, msg.sender);\\n    }\\n\\n    function sendMessage(uint256 roomId, string memory content) public {\\n        require(roomId < rooms.length, \\\"Room does not exist\\\");\\n        Room storage room = rooms[roomId];\\n\\n        // Check if the user is a member of the room\\n        bool isMember = false;\\n        for (uint256 i = 0; i < room.members.length; i++) {\\n            if (room.members[i] == msg.sender) {\\n                isMember = true;\\n                break;\\n            }\\n        }\\n        require(isMember, \\\"User is not a member of the room\\\");\\n\\n        room.messages.push(Message({\\n            sender: msg.sender,\\n            content: content,\\n            timestamp: block.timestamp\\n        }));\\n\\n        emit MessageSent(roomId, msg.sender, content, block.timestamp);\\n    }\\n\\n    function getRoom(uint256 roomId) public view returns (string memory name, address[] memory members, Message[] memory messages) {\\n        require(roomId < rooms.length, \\\"Room does not exist\\\");\\n        Room storage room = rooms[roomId];\\n        return (room.name, room.members, room.messages);\\n    }\\n\\n    function getUserRooms(address user) public view returns (uint256[] memory) {\\n        return userRooms[user];\\n    }\\n\\n    // Function to get the number of rooms\\n    function getRoomCount() public view returns (uint256) {\\n        return rooms.length;\\n    }\\n}\\n\",\"keccak256\":\"0x54b7cd8c77d65b2c6849f0f84b1b235db84d61fffffc516cb88453f43fb41568\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610ea9806100206000396000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c80639cfc4b451161005b5780639cfc4b451461010e578063aae8b59214610121578063b01e796114610134578063eadddb3c1461015457600080fd5b80631bae0ac81461008d57806327b612d1146100b65780636d8a74cb146100d75780637306d2dd146100f9575b600080fd5b6100a061009b366004610910565b61015c565b6040516100ad919061096f565b60405180910390f35b6100c96100c43660046109a5565b610212565b6040519081526020016100ad565b6100ea6100e5366004610910565b610243565b6040516100ad939291906109cf565b61010c610107366004610b50565b6104a6565b005b61010c61011c366004610910565b610579565b61010c61012f366004610b8d565b6106f2565b610147610142366004610bd4565b6108a4565b6040516100ad9190610bef565b6000546100c9565b6000818154811061016c57600080fd5b906000526020600020906003020160009150905080600001805461018f90610c33565b80601f01602080910402602001604051908101604052809291908181526020018280546101bb90610c33565b80156102085780601f106101dd57610100808354040283529160200191610208565b820191906000526020600020905b8154815290600101906020018083116101eb57829003601f168201915b5050505050905081565b6001602052816000526040600020818154811061022e57600080fd5b90600052602060002001600091509150505481565b606080606060008054905084106102755760405162461bcd60e51b815260040161026c90610c6d565b60405180910390fd5b600080858154811061028957610289610c9a565b906000526020600020906003020190508060000181600101826002018280546102b190610c33565b80601f01602080910402602001604051908101604052809291908181526020018280546102dd90610c33565b801561032a5780601f106102ff5761010080835404028352916020019161032a565b820191906000526020600020905b81548152906001019060200180831161030d57829003601f168201915b505050505092508180548060200260200160405190810160405280929190818152602001828054801561038657602002820191906000526020600020905b81546001600160a01b03168152600190910190602001808311610368575b5050505050915080805480602002602001604051908101604052809291908181526020016000905b8282101561049257600084815260209081902060408051606081019091526003850290910180546001600160a01b0316825260018101805492939192918401916103f790610c33565b80601f016020809104026020016040519081016040528092919081815260200182805461042390610c33565b80156104705780601f1061044557610100808354040283529160200191610470565b820191906000526020600020905b81548152906001019060200180831161045357829003601f168201915b50505050508152602001600282015481525050815260200190600101906103ae565b505050509050935093509350509193909250565b600080546001810182559080526003027f290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56301806104e38382610cff565b506001808201805480830182556000918252602082200180546001600160a01b031916331790558054909161051791610dd5565b336000818152600160208181526040808420805493840181558452922001839055519192507f9a658b74d50d3a24b6621fae25f87f046bab19ad7b3dc633600ac2f592b760ce9161056c918491879190610dee565b60405180910390a1505050565b600054811061059a5760405162461bcd60e51b815260040161026c90610c6d565b60008082815481106105ae576105ae610c9a565b9060005260206000209060030201905060005b600182015481101561066c57336001600160a01b03168260010182815481106105ec576105ec610c9a565b6000918252602090912001546001600160a01b03160361065a5760405162461bcd60e51b8152602060048201526024808201527f5573657220697320616c72656164792061206d656d626572206f662074686520604482015263726f6f6d60e01b606482015260840161026c565b8061066481610e1f565b9150506105c1565b506001818101805480830182556000918252602080832090910180546001600160a01b031916339081179091558083528382526040808420805495860181558452928290209093018590558151858152908101929092527f7f3a14b18fc64242e1d87bbda3d879ff601bf57224f7daeaf8bf4658bb84da29910160405180910390a15050565b60005482106107135760405162461bcd60e51b815260040161026c90610c6d565b600080838154811061072757610727610c9a565b906000526020600020906003020190506000805b600183015481101561079b57336001600160a01b031683600101828154811061076657610766610c9a565b6000918252602090912001546001600160a01b031603610789576001915061079b565b8061079381610e1f565b91505061073b565b50806107e95760405162461bcd60e51b815260206004820181905260248201527f55736572206973206e6f742061206d656d626572206f662074686520726f6f6d604482015260640161026c565b604080516060810182523381526020808201868152429383019390935260028501805460018082018355600092835292909120835160039092020180546001600160a01b0319166001600160a01b039092169190911781559251919291908201906108549082610cff565b506040820151816002015550507f1f8960ec3ee7087d0552bc042c456f22e713898e21204c04f5885b3942bb0790843385426040516108969493929190610e38565b60405180910390a150505050565b6001600160a01b03811660009081526001602090815260409182902080548351818402810184019094528084526060939283018282801561090457602002820191906000526020600020905b8154815260200190600101908083116108f0575b50505050509050919050565b60006020828403121561092257600080fd5b5035919050565b6000815180845260005b8181101561094f57602081850181015186830182015201610933565b506000602082860101526020601f19601f83011685010191505092915050565b6020815260006109826020830184610929565b9392505050565b80356001600160a01b03811681146109a057600080fd5b919050565b600080604083850312156109b857600080fd5b6109c183610989565b946020939093013593505050565b600060608083526109e281840187610929565b83810360208581019190915286518083528782019282019060005b81811015610a225784516001600160a01b0316835293830193918301916001016109fd565b505060409250858103838701528087518083528383019150838160051b840101848a0160005b83811015610a9b57858303601f19018552815180516001600160a01b03168452878101518885018b9052610a7e8b860182610929565b918a0151948a019490945294870194925090860190600101610a48565b50909c9b505050505050505050505050565b634e487b7160e01b600052604160045260246000fd5b600082601f830112610ad457600080fd5b813567ffffffffffffffff80821115610aef57610aef610aad565b604051601f8301601f19908116603f01168101908282118183101715610b1757610b17610aad565b81604052838152866020858801011115610b3057600080fd5b836020870160208301376000602085830101528094505050505092915050565b600060208284031215610b6257600080fd5b813567ffffffffffffffff811115610b7957600080fd5b610b8584828501610ac3565b949350505050565b60008060408385031215610ba057600080fd5b82359150602083013567ffffffffffffffff811115610bbe57600080fd5b610bca85828601610ac3565b9150509250929050565b600060208284031215610be657600080fd5b61098282610989565b6020808252825182820181905260009190848201906040850190845b81811015610c2757835183529284019291840191600101610c0b565b50909695505050505050565b600181811c90821680610c4757607f821691505b602082108103610c6757634e487b7160e01b600052602260045260246000fd5b50919050565b602080825260139082015272149bdbdb48191bd95cc81b9bdd08195e1a5cdd606a1b604082015260600190565b634e487b7160e01b600052603260045260246000fd5b601f821115610cfa57600081815260208120601f850160051c81016020861015610cd75750805b601f850160051c820191505b81811015610cf657828155600101610ce3565b5050505b505050565b815167ffffffffffffffff811115610d1957610d19610aad565b610d2d81610d278454610c33565b84610cb0565b602080601f831160018114610d625760008415610d4a5750858301515b600019600386901b1c1916600185901b178555610cf6565b600085815260208120601f198616915b82811015610d9157888601518255948401946001909101908401610d72565b5085821015610daf5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b634e487b7160e01b600052601160045260246000fd5b81810381811115610de857610de8610dbf565b92915050565b838152606060208201526000610e076060830185610929565b905060018060a01b0383166040830152949350505050565b600060018201610e3157610e31610dbf565b5060010190565b8481526001600160a01b0384166020820152608060408201819052600090610e6290830185610929565b90508260608301529594505050505056fea2646970667358221220b2051b1e6d69a7840df060b81f04c42a356d1724bf3cc16575dcf9ee0eb0febb64736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100885760003560e01c80639cfc4b451161005b5780639cfc4b451461010e578063aae8b59214610121578063b01e796114610134578063eadddb3c1461015457600080fd5b80631bae0ac81461008d57806327b612d1146100b65780636d8a74cb146100d75780637306d2dd146100f9575b600080fd5b6100a061009b366004610910565b61015c565b6040516100ad919061096f565b60405180910390f35b6100c96100c43660046109a5565b610212565b6040519081526020016100ad565b6100ea6100e5366004610910565b610243565b6040516100ad939291906109cf565b61010c610107366004610b50565b6104a6565b005b61010c61011c366004610910565b610579565b61010c61012f366004610b8d565b6106f2565b610147610142366004610bd4565b6108a4565b6040516100ad9190610bef565b6000546100c9565b6000818154811061016c57600080fd5b906000526020600020906003020160009150905080600001805461018f90610c33565b80601f01602080910402602001604051908101604052809291908181526020018280546101bb90610c33565b80156102085780601f106101dd57610100808354040283529160200191610208565b820191906000526020600020905b8154815290600101906020018083116101eb57829003601f168201915b5050505050905081565b6001602052816000526040600020818154811061022e57600080fd5b90600052602060002001600091509150505481565b606080606060008054905084106102755760405162461bcd60e51b815260040161026c90610c6d565b60405180910390fd5b600080858154811061028957610289610c9a565b906000526020600020906003020190508060000181600101826002018280546102b190610c33565b80601f01602080910402602001604051908101604052809291908181526020018280546102dd90610c33565b801561032a5780601f106102ff5761010080835404028352916020019161032a565b820191906000526020600020905b81548152906001019060200180831161030d57829003601f168201915b505050505092508180548060200260200160405190810160405280929190818152602001828054801561038657602002820191906000526020600020905b81546001600160a01b03168152600190910190602001808311610368575b5050505050915080805480602002602001604051908101604052809291908181526020016000905b8282101561049257600084815260209081902060408051606081019091526003850290910180546001600160a01b0316825260018101805492939192918401916103f790610c33565b80601f016020809104026020016040519081016040528092919081815260200182805461042390610c33565b80156104705780601f1061044557610100808354040283529160200191610470565b820191906000526020600020905b81548152906001019060200180831161045357829003601f168201915b50505050508152602001600282015481525050815260200190600101906103ae565b505050509050935093509350509193909250565b600080546001810182559080526003027f290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56301806104e38382610cff565b506001808201805480830182556000918252602082200180546001600160a01b031916331790558054909161051791610dd5565b336000818152600160208181526040808420805493840181558452922001839055519192507f9a658b74d50d3a24b6621fae25f87f046bab19ad7b3dc633600ac2f592b760ce9161056c918491879190610dee565b60405180910390a1505050565b600054811061059a5760405162461bcd60e51b815260040161026c90610c6d565b60008082815481106105ae576105ae610c9a565b9060005260206000209060030201905060005b600182015481101561066c57336001600160a01b03168260010182815481106105ec576105ec610c9a565b6000918252602090912001546001600160a01b03160361065a5760405162461bcd60e51b8152602060048201526024808201527f5573657220697320616c72656164792061206d656d626572206f662074686520604482015263726f6f6d60e01b606482015260840161026c565b8061066481610e1f565b9150506105c1565b506001818101805480830182556000918252602080832090910180546001600160a01b031916339081179091558083528382526040808420805495860181558452928290209093018590558151858152908101929092527f7f3a14b18fc64242e1d87bbda3d879ff601bf57224f7daeaf8bf4658bb84da29910160405180910390a15050565b60005482106107135760405162461bcd60e51b815260040161026c90610c6d565b600080838154811061072757610727610c9a565b906000526020600020906003020190506000805b600183015481101561079b57336001600160a01b031683600101828154811061076657610766610c9a565b6000918252602090912001546001600160a01b031603610789576001915061079b565b8061079381610e1f565b91505061073b565b50806107e95760405162461bcd60e51b815260206004820181905260248201527f55736572206973206e6f742061206d656d626572206f662074686520726f6f6d604482015260640161026c565b604080516060810182523381526020808201868152429383019390935260028501805460018082018355600092835292909120835160039092020180546001600160a01b0319166001600160a01b039092169190911781559251919291908201906108549082610cff565b506040820151816002015550507f1f8960ec3ee7087d0552bc042c456f22e713898e21204c04f5885b3942bb0790843385426040516108969493929190610e38565b60405180910390a150505050565b6001600160a01b03811660009081526001602090815260409182902080548351818402810184019094528084526060939283018282801561090457602002820191906000526020600020905b8154815260200190600101908083116108f0575b50505050509050919050565b60006020828403121561092257600080fd5b5035919050565b6000815180845260005b8181101561094f57602081850181015186830182015201610933565b506000602082860101526020601f19601f83011685010191505092915050565b6020815260006109826020830184610929565b9392505050565b80356001600160a01b03811681146109a057600080fd5b919050565b600080604083850312156109b857600080fd5b6109c183610989565b946020939093013593505050565b600060608083526109e281840187610929565b83810360208581019190915286518083528782019282019060005b81811015610a225784516001600160a01b0316835293830193918301916001016109fd565b505060409250858103838701528087518083528383019150838160051b840101848a0160005b83811015610a9b57858303601f19018552815180516001600160a01b03168452878101518885018b9052610a7e8b860182610929565b918a0151948a019490945294870194925090860190600101610a48565b50909c9b505050505050505050505050565b634e487b7160e01b600052604160045260246000fd5b600082601f830112610ad457600080fd5b813567ffffffffffffffff80821115610aef57610aef610aad565b604051601f8301601f19908116603f01168101908282118183101715610b1757610b17610aad565b81604052838152866020858801011115610b3057600080fd5b836020870160208301376000602085830101528094505050505092915050565b600060208284031215610b6257600080fd5b813567ffffffffffffffff811115610b7957600080fd5b610b8584828501610ac3565b949350505050565b60008060408385031215610ba057600080fd5b82359150602083013567ffffffffffffffff811115610bbe57600080fd5b610bca85828601610ac3565b9150509250929050565b600060208284031215610be657600080fd5b61098282610989565b6020808252825182820181905260009190848201906040850190845b81811015610c2757835183529284019291840191600101610c0b565b50909695505050505050565b600181811c90821680610c4757607f821691505b602082108103610c6757634e487b7160e01b600052602260045260246000fd5b50919050565b602080825260139082015272149bdbdb48191bd95cc81b9bdd08195e1a5cdd606a1b604082015260600190565b634e487b7160e01b600052603260045260246000fd5b601f821115610cfa57600081815260208120601f850160051c81016020861015610cd75750805b601f850160051c820191505b81811015610cf657828155600101610ce3565b5050505b505050565b815167ffffffffffffffff811115610d1957610d19610aad565b610d2d81610d278454610c33565b84610cb0565b602080601f831160018114610d625760008415610d4a5750858301515b600019600386901b1c1916600185901b178555610cf6565b600085815260208120601f198616915b82811015610d9157888601518255948401946001909101908401610d72565b5085821015610daf5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b634e487b7160e01b600052601160045260246000fd5b81810381811115610de857610de8610dbf565b92915050565b838152606060208201526000610e076060830185610929565b905060018060a01b0383166040830152949350505050565b600060018201610e3157610e31610dbf565b5060010190565b8481526001600160a01b0384166020820152608060408201819052600090610e6290830185610929565b90508260608301529594505050505056fea2646970667358221220b2051b1e6d69a7840df060b81f04c42a356d1724bf3cc16575dcf9ee0eb0febb64736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 22,
+        "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+        "label": "rooms",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_array(t_struct(Room)18_storage)dyn_storage"
+      },
+      {
+        "astId": 27,
+        "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+        "label": "userRooms",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_address)dyn_storage": {
+        "base": "t_address",
+        "encoding": "dynamic_array",
+        "label": "address[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(Message)8_storage)dyn_storage": {
+        "base": "t_struct(Message)8_storage",
+        "encoding": "dynamic_array",
+        "label": "struct DecentralizedChat.Message[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(Room)18_storage)dyn_storage": {
+        "base": "t_struct(Room)18_storage",
+        "encoding": "dynamic_array",
+        "label": "struct DecentralizedChat.Room[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Message)8_storage": {
+        "encoding": "inplace",
+        "label": "struct DecentralizedChat.Message",
+        "members": [
+          {
+            "astId": 3,
+            "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+            "label": "sender",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 5,
+            "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+            "label": "content",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 7,
+            "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+            "label": "timestamp",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(Room)18_storage": {
+        "encoding": "inplace",
+        "label": "struct DecentralizedChat.Room",
+        "members": [
+          {
+            "astId": 10,
+            "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+            "label": "name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 13,
+            "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+            "label": "members",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_address)dyn_storage"
+          },
+          {
+            "astId": 17,
+            "contract": "contracts/DecentralizedChat.sol:DecentralizedChat",
+            "label": "messages",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_struct(Message)8_storage)dyn_storage"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
