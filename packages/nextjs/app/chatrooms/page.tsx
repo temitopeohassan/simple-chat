@@ -135,16 +135,15 @@ const Chatrooms: NextPage<ChatroomsProps> = ({ DecentralizedChatData }) => {
 
       const txResponse = await writeTx(createRoomTx, { blockConfirmations: 1 });
 
-      if (!txResponse?.hash) {
-        throw new Error("Failed to create room. No transaction hash found.");
+      if (typeof txResponse !== 'string') {
+        throw new Error("Failed to create room. Invalid transaction response.");
       }
 
       // Optimistically update the UI
       setIsFormSubmitted(true);
       await fetchRooms();
-
       const { isSuccess } = useTransaction({
-        hash: txResponse.hash,
+        hash: txResponse,
       });
 
       if (isSuccess) {
