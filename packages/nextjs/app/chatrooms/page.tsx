@@ -94,7 +94,7 @@ const useRooms = (isFormSubmitted: boolean) => {
 
   useEffect(() => {
     fetchRooms();
-  }, [roomsCount, provider, isFormSubmitted]);
+  }, [roomsCount, provider, isFormSubmitted, fetchRooms]);
 
   return { rooms, loading, fetchRooms };
 };
@@ -115,6 +115,11 @@ const Chatrooms: NextPage<ChatroomsProps> = ({ DecentralizedChatData }) => {
 
   const { writeContractAsync: joinRoomAsync, isPending: isJoining } = useWriteContract();
   const { writeContractAsync: createRoomAsync, isPending: isCreating } = useWriteContract();
+  const [txResponse, setTxResponse] = useState<`0x${string}` | undefined>(undefined);
+
+  const { isSuccess } = useTransaction({
+    hash: txResponse,
+  });
 
   const handleCreateRoom = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -142,10 +147,6 @@ const Chatrooms: NextPage<ChatroomsProps> = ({ DecentralizedChatData }) => {
       // Optimistically update the UI
       setIsFormSubmitted(true);
       await fetchRooms();
-      const { isSuccess } = useTransaction({
-        hash: txResponse,
-      });
-
       if (isSuccess) {
         await fetchRooms();
       }
@@ -279,3 +280,4 @@ const Chatrooms: NextPage<ChatroomsProps> = ({ DecentralizedChatData }) => {
 };
 
 export default Chatrooms;
+
