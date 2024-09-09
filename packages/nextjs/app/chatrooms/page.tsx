@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import { useAccount, usePublicClient, useReadContract, useWriteContract, useTransaction } from "wagmi";
@@ -34,7 +34,7 @@ const useRooms = (isFormSubmitted: boolean) => {
     functionName: "getRoomCount",
   });
 
-  const fetchRooms = async () => {
+  const fetchRooms = useCallback(async () => {
     if (!roomsCount || !provider) return;
 
     const fetchedRooms: Room[] = [];
@@ -90,20 +90,16 @@ const useRooms = (isFormSubmitted: boolean) => {
 
     setRooms(fetchedRooms);
     setLoading(false);
-  };
+  }, [roomsCount, provider]);
 
   useEffect(() => {
     fetchRooms();
-  }, [roomsCount, provider, isFormSubmitted, fetchRooms]);
+  }, [isFormSubmitted, fetchRooms]);
 
   return { rooms, loading, fetchRooms };
 };
 
-interface ChatroomsProps {
-  DecentralizedChatData: any;
-}
-
-const Chatrooms: NextPage<ChatroomsProps> = ({ DecentralizedChatData }) => {
+const Chatrooms: NextPage = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const { rooms, loading, fetchRooms } = useRooms(isFormSubmitted);
   const { address } = useAccount();
