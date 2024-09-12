@@ -9,8 +9,8 @@ import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth/useScaffold
 import { useTransactor } from "~~/hooks/scaffold-eth";
 
 const contractName = "DecentralizedChat";
-const contractAddress = deployedContracts[31337]?.DecentralizedChat?.address as `0x${string}`;
-const contractAbi = deployedContracts[31337]?.DecentralizedChat?.abi;
+const contractAddress = deployedContracts[11155111]?.DecentralizedChat?.address as `0x${string}`;
+const contractAbi = deployedContracts[11155111]?.DecentralizedChat?.abi;
 
 interface Room {
   name: string;
