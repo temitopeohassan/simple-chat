@@ -6,11 +6,11 @@ import { useAccount, usePublicClient, useReadContract, useWriteContract, useWait
 import deployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldWatchContractEvent } from "~~/hooks/scaffold-eth/useScaffoldWatchContractEvent";
 
-const networkId = "31337";
+const networkId = "11155111";
 
 const contractName = "DecentralizedChat";
-const contractAddress = deployedContracts[31337]?.DecentralizedChat?.address;
-const contractAbi = deployedContracts[31337]?.DecentralizedChat?.abi;
+const contractAddress = deployedContracts[11155111]?.DecentralizedChat?.address;
+const contractAbi = deployedContracts[11155111]?.DecentralizedChat?.abi;
 
 interface Room {
   name: string;
@@ -142,6 +142,10 @@ const RoomPage = () => {
 
     const fetchRoomData = async () => {
       try {
+        await refetchRoomData();
+        await refetchRoomMembers();
+        await refetchMessagesCount();
+
         const roomName = roomData as unknown as string;
         const members = roomMembers as unknown as string[];
         const messagesCountNum = messagesCount as unknown as number;
@@ -172,7 +176,8 @@ const RoomPage = () => {
     };
 
     fetchRoomData();
-  }, [roomIDValue, publicClient, roomData, roomMembers, messagesCount]);
+  }, [roomIDValue, publicClient, roomData, roomMembers, messagesCount, refetchRoomData, refetchRoomMembers, refetchMessagesCount]);
+
 
   useScaffoldWatchContractEvent({
     contractName,
@@ -305,7 +310,7 @@ const RoomPage = () => {
           <h1 className="mt-2"><span className="block text-2xl mb-2">Members In The Room</span></h1>
           <ul className="break-all">
             {room && room.members && room.members.length > 0
-              ? room.members?.map((member, index) => (
+              ? room.members.map((member, index) => (
                 <ChatroomMember key={index} member={member} />
               ))
               : <li>No members in this room</li>}

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useEffect, useState, useCallback } from "react";
 import { NextPage } from "next";
@@ -23,10 +23,10 @@ interface Room {
   }[];
 }
 
-const useRooms = (isFormSubmitted: boolean) => {
+const useRooms = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const provider = usePublicClient();
+  const publicClient = usePublicClient();
 
   const { data: roomsCount } = useReadContract({
     address: contractAddress,
@@ -35,26 +35,26 @@ const useRooms = (isFormSubmitted: boolean) => {
   });
 
   const fetchRooms = useCallback(async () => {
-    if (!roomsCount || !provider) return;
+    if (!roomsCount || !publicClient) return;
 
     const fetchedRooms: Room[] = [];
 
     for (let i = 0; i < Number(roomsCount); i++) {
-      const roomName = await provider.readContract({
+      const roomName = await publicClient.readContract({
         address: contractAddress,
         abi: contractAbi,
         functionName: "getRoom",
         args: [BigInt(i)],
       });
 
-      const members = await provider.readContract({
+      const members = await publicClient.readContract({
         address: contractAddress,
         abi: contractAbi,
         functionName: "getRoomMembers",
         args: [BigInt(i)],
       });
 
-      const messagesCount = await provider.readContract({
+      const messagesCount = await publicClient.readContract({
         address: contractAddress,
         abi: contractAbi,
         functionName: "getRoomMessagesCount",
@@ -63,7 +63,7 @@ const useRooms = (isFormSubmitted: boolean) => {
 
       const messages = [];
       for (let j = 0; j < Number(messagesCount); j++) {
-        const message = await provider.readContract({
+        const message = await publicClient.readContract({
           address: contractAddress,
           abi: contractAbi,
           functionName: "getRoomMessage",
@@ -90,32 +90,39 @@ const useRooms = (isFormSubmitted: boolean) => {
 
     setRooms(fetchedRooms);
     setLoading(false);
-  }, [roomsCount, provider]);
+  }, [roomsCount, publicClient]);
 
   useEffect(() => {
     fetchRooms();
-  }, [isFormSubmitted, fetchRooms]);
+  }, [fetchRooms]);
 
   return { rooms, loading, fetchRooms };
 };
 
 const Chatrooms: NextPage = () => {
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-  const { rooms, loading, fetchRooms } = useRooms(isFormSubmitted);
+  const { rooms, loading, fetchRooms } = useRooms();
   const { address } = useAccount();
   const router = useRouter();
   const writeTx = useTransactor();
+  const publicClient = usePublicClient();
 
   const [currentPage, setCurrentPage] = useState(1);
   const roomsPerPage = 5;
 
-  const { writeContractAsync: joinRoomAsync, isPending: isJoining } = useWriteContract();
-  const { writeContractAsync: createRoomAsync, isPending: isCreating } = useWriteContract();
+  const { writeContractAsync: joinRoomAsync } = useWriteContract();
+  const { writeContractAsync: createRoomAsync } = useWriteContract();
   const [txResponse, setTxResponse] = useState<`0x${string}` | undefined>(undefined);
+  const [isCreating, setIsCreating] = useState(false);
 
-  const { isSuccess } = useTransaction({
+  const { isSuccess: isTxSuccess } = useTransaction({
     hash: txResponse,
   });
+
+  useEffect(() => {
+    if (isTxSuccess) {
+      fetchRooms();
+    }
+  }, [isTxSuccess, fetchRooms]);
 
   const handleCreateRoom = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -123,6 +130,7 @@ const Chatrooms: NextPage = () => {
     const roomName = roomNameInput ? roomNameInput.value : "";
 
     try {
+      setIsCreating(true);
       // Close the modal immediately after form submission
       (document.getElementById('my_modal_1') as HTMLDialogElement)?.close();
 
@@ -140,46 +148,57 @@ const Chatrooms: NextPage = () => {
         throw new Error("Failed to create room. Invalid transaction response.");
       }
 
-      // Optimistically update the UI
-      setIsFormSubmitted(true);
+      setTxResponse(txResponse);
       await fetchRooms();
-      if (isSuccess) {
-        await fetchRooms();
-      }
-
-      setIsFormSubmitted(false);
     } catch (error) {
       console.error("Error creating room:", error);
-      setIsFormSubmitted(false);
+    } finally {
+      setIsCreating(false);
     }
   };
 
   useScaffoldWatchContractEvent({
     contractName,
     eventName: "RoomCreated",
-    onLogs: fetchRooms,
+    onLogs: useCallback(() => {
+      fetchRooms();
+    }, [fetchRooms]),
   });
 
   useScaffoldWatchContractEvent({
     contractName,
     eventName: "JoinedRoom",
-    onLogs: fetchRooms,
+    onLogs: useCallback(() => {
+      fetchRooms();
+    }, [fetchRooms]),
   });
 
   const joinAndEnterRoom = async (roomId: number) => {
-    try {
-      const joinRoomTx = async () =>
-        joinRoomAsync({
-          address: contractAddress,
-          abi: contractAbi,
-          functionName: "joinRoom",
-          args: [BigInt(roomId)],
-        });
+    if (!address || !publicClient) return;
 
-      await writeTx(joinRoomTx);
+    try {
+      const isUserInRoom = await publicClient.readContract({
+        address: contractAddress,
+        abi: contractAbi,
+        functionName: "isMember",
+        args: [BigInt(roomId), address],
+      });
+
+      if (!isUserInRoom) {
+        const joinRoomTx = async () =>
+          joinRoomAsync({
+            address: contractAddress,
+            abi: contractAbi,
+            functionName: "joinRoom",
+            args: [BigInt(roomId)],
+          });
+
+        await writeTx(joinRoomTx);
+      }
+
       router.push(`/room/${roomId}`);
     } catch (error) {
-      console.error("Error joining room:", error);
+      console.error("Error joining or entering room:", error);
     }
   };
 
@@ -197,27 +216,18 @@ const Chatrooms: NextPage = () => {
           <button className="btn" onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement)?.showModal()}>Create Chatroom</button>
           <dialog id="my_modal_1" className="modal">
             <div className="modal-box">
-              {!isFormSubmitted ? (
-                <div>
-                  <h3 className="font-bold text-lg">Create Room</h3>
-                  <form onSubmit={handleCreateRoom}>
-                    <input
-                      type="text"
-                      placeholder="Enter Room Name"
-                      name="roomName"
-                      className="input input-bordered w-full max-w-xs pb-2 m-2"
-                    />
-                    <button className="btn" type="submit" disabled={isCreating}>Create Room</button>
-                  </form>
-                </div>
-              ) : (
-                <div>
-                  <p className="py-4">Submitted. Please complete the transaction in your wallet.</p>
-                  <form method="dialog">
-                    <button className="btn">Close</button>
-                  </form>
-                </div>
-              )}
+              <div>
+                <h3 className="font-bold text-lg">Create Room</h3>
+                <form onSubmit={handleCreateRoom}>
+                  <input
+                    type="text"
+                    placeholder="Enter Room Name"
+                    name="roomName"
+                    className="input input-bordered w-full max-w-xs pb-2 m-2"
+                  />
+                  <button className="btn" type="submit" disabled={isCreating}>Create Room</button>
+                </form>
+              </div>
             </div>
           </dialog>
         </div>
@@ -276,4 +286,3 @@ const Chatrooms: NextPage = () => {
 };
 
 export default Chatrooms;
-
