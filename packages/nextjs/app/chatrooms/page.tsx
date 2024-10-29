@@ -34,73 +34,71 @@ const useRooms = () => {
     functionName: "getRoomCount",
   });
 
+  const fetchSingleRoom = useCallback(async (roomId: number) => {
+    if (!publicClient) return null;
+
+    const roomName = await publicClient.readContract({
+      address: contractAddress,
+      abi: contractAbi,
+      functionName: "getRoom",
+      args: [BigInt(roomId)],
+    });
+
+    const members = await publicClient.readContract({
+      address: contractAddress,
+      abi: contractAbi,
+      functionName: "getRoomMembers",
+      args: [BigInt(roomId)],
+    });
+
+    const messagesCount = await publicClient.readContract({
+      address: contractAddress,
+      abi: contractAbi,
+      functionName: "getRoomMessagesCount",
+      args: [BigInt(roomId)],
+    });
+
+    return {
+      name: roomName as string,
+      membersCount: (members as string[]).length,
+      messagesCount: Number(messagesCount),
+      messages: [],
+    };
+  }, [publicClient]);
+
   const fetchRooms = useCallback(async () => {
     if (!roomsCount || !publicClient) return;
 
     const fetchedRooms: Room[] = [];
+    const totalRooms = Number(roomsCount);
 
-    for (let i = 0; i < Number(roomsCount); i++) {
-      const roomName = await publicClient.readContract({
-        address: contractAddress,
-        abi: contractAbi,
-        functionName: "getRoom",
-        args: [BigInt(i)],
-      });
-
-      const members = await publicClient.readContract({
-        address: contractAddress,
-        abi: contractAbi,
-        functionName: "getRoomMembers",
-        args: [BigInt(i)],
-      });
-
-      const messagesCount = await publicClient.readContract({
-        address: contractAddress,
-        abi: contractAbi,
-        functionName: "getRoomMessagesCount",
-        args: [BigInt(i)],
-      });
-
-      const messages = [];
-      for (let j = 0; j < Number(messagesCount); j++) {
-        const message = await publicClient.readContract({
-          address: contractAddress,
-          abi: contractAbi,
-          functionName: "getRoomMessage",
-          args: [BigInt(i), BigInt(j)],
-        });
-
-        if (message) {
-          const [sender, content, timestamp] = message as [string, string, bigint];
-          messages.push({
-            sender,
-            content,
-            timestamp: Number(timestamp),
-          });
-        }
+    for (let i = totalRooms - 1; i >= 0; i--) {
+      const room = await fetchSingleRoom(i);
+      if (room) {
+        fetchedRooms.push(room);
       }
-
-      fetchedRooms.push({
-        name: roomName as string,
-        membersCount: (members as string[]).length,
-        messagesCount: Number(messagesCount),
-        messages,
-      });
     }
 
     setRooms(fetchedRooms);
     setLoading(false);
-  }, [roomsCount, publicClient]);
+  }, [roomsCount, publicClient, fetchSingleRoom]);
 
   useEffect(() => {
     fetchRooms();
   }, [fetchRooms]);
 
-  return { rooms, loading, fetchRooms };
+  const addNewRoom = useCallback(async (roomId: number) => {
+    const newRoom = await fetchSingleRoom(roomId);
+    if (newRoom) {
+      setRooms(prevRooms => [newRoom, ...prevRooms]);
+    }
+  }, [fetchSingleRoom]);
+
+  return { rooms, loading, fetchRooms, addNewRoom };
 };
 
 const Chatrooms: NextPage = () => {
-  const { rooms, loading, fetchRooms } = useRooms();
+  const { rooms, loading, fetchRooms, addNewRoom } = useRooms();
   const { address } = useAccount();
   const router = useRouter();
   const writeTx = useTransactor();
@@ -160,9 +158,13 @@ const Chatrooms: NextPage = () => {
   useScaffoldWatchContractEvent({
     contractName,
     eventName: "RoomCreated",
-    onLogs: useCallback(() => {
-      fetchRooms();
-    }, [fetchRooms]),
+    onLogs: useCallback((logs: any[]) => {
+      logs.forEach(log => {
+        const { roomId } = log.args;
+        console.log("📡 New room created event received", roomId);
+        addNewRoom(Number(roomId));
+      });
+    }, [addNewRoom]),
   });
 
   useScaffoldWatchContractEvent({
